@@ -20,7 +20,7 @@ export interface ExtensionHandlers<M> {
   onerror: (error: Error) => void
 }
 
-export interface HypercoreGetOptions {
+export interface UnichainGetOptions {
   wait?: boolean
   timeout?: number
   valueEncoding: Encoding
@@ -44,7 +44,7 @@ export interface UpdateOptions {
   minLength?: number
 }
 
-export interface HypercoreReadStreamOpts {
+export interface UnichainReadStreamOpts {
   start?: number
   end?: number
   snapshot?: boolean
@@ -55,7 +55,7 @@ export interface HypercoreReadStreamOpts {
   batch?: number
 }
 
-export interface HypercoreWriteStreamOpts {
+export interface UnichainWriteStreamOpts {
   maxBlockSize?: number
 }
 
@@ -82,7 +82,7 @@ export interface Have {
   bitfield?: Buffer
 }
 
-export interface Hypercore<E=Buffer> {
+export interface Unichain<E=Buffer> {
   readonly writable: boolean
   readonly readable: boolean
   readonly key: Buffer
@@ -92,34 +92,34 @@ export interface Hypercore<E=Buffer> {
   readonly stats: NetworkStats
   readonly peers: Peer[]
 
-  on(event: 'peer-add', listener: (peer: Peer) => any): Hypercore
-  on(event: 'peer-remove', listener: (peer: Peer) => any): Hypercore
-  on(event: 'peer-open', listener: (peer: Peer) => any): Hypercore
-  on(event: 'peer-ack', listener: (peer: Peer, have: Have) => any): Hypercore
-  on(event: 'ready', listener: () => any): Hypercore
-  on(event: 'error', listener: (error: Error) => any): Hypercore
-  on(event: 'upload', listener: (index: number, data: E) => any): Hypercore
-  on(event: 'append', listener: () => any): Hypercore
-  on(event: 'close', listener: () => any): Hypercore
+  on(event: 'peer-add', listener: (peer: Peer) => any): Unichain
+  on(event: 'peer-remove', listener: (peer: Peer) => any): Unichain
+  on(event: 'peer-open', listener: (peer: Peer) => any): Unichain
+  on(event: 'peer-ack', listener: (peer: Peer, have: Have) => any): Unichain
+  on(event: 'ready', listener: () => any): Unichain
+  on(event: 'error', listener: (error: Error) => any): Unichain
+  on(event: 'upload', listener: (index: number, data: E) => any): Unichain
+  on(event: 'append', listener: () => any): Unichain
+  on(event: 'close', listener: () => any): Unichain
 
-  once(event: 'peer-add', listener: (peer: Peer) => any): Hypercore
-  once(event: 'peer-remove', listener: (peer: Peer) => any): Hypercore
-  once(event: 'peer-open', listener: (peer: Peer) => any): Hypercore
-  once(event: 'peer-ack', listener: (peer: Peer, have: Have) => any): Hypercore
-  once(event: 'ready', listener: () => any): Hypercore
-  once(event: 'error', listener: (error: Error) => any): Hypercore
-  once(event: 'upload', listener: (index: number, data: E) => any): Hypercore
-  once(event: 'append', listener: () => any): Hypercore
-  once(event: 'close', listener: () => any): Hypercore
+  once(event: 'peer-add', listener: (peer: Peer) => any): Unichain
+  once(event: 'peer-remove', listener: (peer: Peer) => any): Unichain
+  once(event: 'peer-open', listener: (peer: Peer) => any): Unichain
+  once(event: 'peer-ack', listener: (peer: Peer, have: Have) => any): Unichain
+  once(event: 'ready', listener: () => any): Unichain
+  once(event: 'error', listener: (error: Error) => any): Unichain
+  once(event: 'upload', listener: (index: number, data: E) => any): Unichain
+  once(event: 'append', listener: () => any): Unichain
+  once(event: 'close', listener: () => any): Unichain
 
   ready(): Promise<void>
 
   registerExtension<M=Buffer>(name: string, handlers: ExtensionHandlers<M>): Extension<M>
 
   append(data: E): Promise<number>
-  get(index: number, options? : HypercoreGetOptions): Promise<E>
-  getBatch(start: number, end: number, options?: HypercoreGetOptions): Promise<E[]>
-  head(options?: HypercoreGetOptions): Promise<E>
+  get(index: number, options? : UnichainGetOptions): Promise<E>
+  getBatch(start: number, end: number, options?: UnichainGetOptions): Promise<E[]>
+  head(options?: UnichainGetOptions): Promise<E>
   download(range?: DownloadRange): Promise<void>
   signature(index?: number): Promise<Buffer>
   verify(index: number, signature: Buffer): Promise<boolean>
@@ -132,8 +132,8 @@ export interface Hypercore<E=Buffer> {
   setDownloading(downloading: boolean): void
   setUploading(uploading: boolean): void
 
-  createReadStream(options? : HypercoreReadStreamOpts): NodeJS.ReadableStream
-  createWriteStream(options?: HypercoreWriteStreamOpts): NodeJS.WritableStream
+  createReadStream(options? : UnichainReadStreamOpts): NodeJS.ReadableStream
+  createWriteStream(options?: UnichainWriteStreamOpts): NodeJS.WritableStream
 
   close(): Promise<void>
   destroyStorage(): Promise<void>
@@ -181,7 +181,7 @@ export interface Stat {
 }
 
 export interface MountInfo {
-  feed: Hypercore
+  feed: Unichain
   mountPath: string
   mountInfo: any
 }
@@ -202,42 +202,42 @@ export interface GetMountsOptions {
 
 export interface MountFeeds {
   path: string
-  metadata: Hypercore
-  content: Hypercore
+  metadata: Unichain
+  content: Unichain
 }
 
 export interface MountMap {
   [path: string]: MountFeeds
 }
 
-export interface Hyperdrive {
+export interface Bitdrive {
   readonly version: number
   readonly key: Buffer
   readonly discoveryKey: Buffer
   readonly writable: boolean
   readonly peers: Peer[]
 
-  on(event: 'ready', listener: () => any): Hyperdrive
-  on(event: 'error', listener: (error: Error) => any): Hyperdrive
-  on(event: 'update', listener: () => any): Hyperdrive
-  on(event: 'peer-add', listener: (peer: Peer) => any): Hyperdrive
-  on(event: 'peer-open', listener: (peer: Peer) => any): Hyperdrive
-  on(event: 'peer-remove', listener: (peer: Peer) => any): Hyperdrive
-  on(event: 'close', listener: () => any): Hyperdrive
+  on(event: 'ready', listener: () => any): Bitdrive
+  on(event: 'error', listener: (error: Error) => any): Bitdrive
+  on(event: 'update', listener: () => any): Bitdrive
+  on(event: 'peer-add', listener: (peer: Peer) => any): Bitdrive
+  on(event: 'peer-open', listener: (peer: Peer) => any): Bitdrive
+  on(event: 'peer-remove', listener: (peer: Peer) => any): Bitdrive
+  on(event: 'close', listener: () => any): Bitdrive
 
-  once(event: 'ready', listener: () => any): Hyperdrive
-  once(event: 'error', listener: (error: Error) => any): Hyperdrive
-  once(event: 'update', listener: () => any): Hyperdrive
-  once(event: 'peer-add', listener: (peer: Peer) => any): Hyperdrive
-  once(event: 'peer-open', listener: (peer: Peer) => any): Hyperdrive
-  once(event: 'peer-remove', listener: (peer: Peer) => any): Hyperdrive
-  once(event: 'close', listener: () => any): Hyperdrive
+  once(event: 'ready', listener: () => any): Bitdrive
+  once(event: 'error', listener: (error: Error) => any): Bitdrive
+  once(event: 'update', listener: () => any): Bitdrive
+  once(event: 'peer-add', listener: (peer: Peer) => any): Bitdrive
+  once(event: 'peer-open', listener: (peer: Peer) => any): Bitdrive
+  once(event: 'peer-remove', listener: (peer: Peer) => any): Bitdrive
+  once(event: 'close', listener: () => any): Bitdrive
 
   registerExtension<M=Buffer>(name: string, handlers: ExtensionHandlers<M>): Extension<M>
 
   ready(): Promise<void>
 
-  checkout(version: number): Hyperdrive
+  checkout(version: number): Bitdrive
   createTag(name: string, version?: number): Promise<void>
   getTaggedVersion(name: string): Promise<number>
   deleteTag(name: string): Promise<void>

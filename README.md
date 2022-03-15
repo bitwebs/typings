@@ -1,2 +1,2 @@
-# hyper-typings
-Typescript definitions for the Hypercore and Hyperswarm ecosystem.
+# @web4/typings
+Typescript definitions for the Unichain and Bitswarm ecosystem.

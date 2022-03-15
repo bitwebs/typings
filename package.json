@@ -1,29 +1,29 @@
 {
-  "name": "hyper-typings",
+  "name": "@web4/typings",
   "version": "1.0.0",
-  "description": "Typescript definitions for the Hypercore and Hyperswarm ecosystem.",
+  "description": "Typescript definitions for the Unichain and Bitswarm ecosystem.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RangerMauve/hyper-typings.git"
+    "url": "git+https://github.com/bitwebs/typings.git"
   },
   "keywords": [
-    "hypercore",
+    "unichain",
     "protocol",
-    "hyperswarm",
+    "bitswarm",
     "typescript",
     "ts",
     "type"
   ],
-  "author": "rangermauve <ranger@mauve.moe> (https://mauve.moe/)",
+  "author": "BitWeb Project",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/RangerMauve/hyper-typings/issues"
+    "url": "https://github.com/bitwebs/typings/issues"
   },
-  "homepage": "https://github.com/RangerMauve/hyper-typings#readme",
+  "homepage": "https://github.com/bitwebs/typings#readme",
   "devDependencies": {
     "@types/node": "^14.14.37"
   }
